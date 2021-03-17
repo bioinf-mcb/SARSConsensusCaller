@@ -17,12 +17,12 @@ def CallConsensus(folder, ref_path, result_dir):
     bulk = []
     for f in trange(len(filelist)):
         fname = filelist[f]
-        os.system(f"bcftools consensus -f {ref_path} -o ./result/{fname}.fasta {fname}")
-        seqs = list(SeqIO.parse(f"./result/{fname}.fasta", "fasta"))
+        os.system(f"bcftools consensus -f {ref_path} -o {result_dir}/{fname}.fasta {fname}")
+        seqs = list(SeqIO.parse(f"{result_dir}/{fname}.fasta", "fasta"))
         seq = seqs[0]
         seq.id = fname[:-6]
         bulk.append(seq)
-    SeqIO.write(bulk, "./result/bulk.fasta", "fasta")
+    SeqIO.write(bulk, "{result_dir}/final_output.fasta", "fasta")
 
 if __name__ == "__main__":
 
