@@ -3,7 +3,7 @@ import os
 configfile: "config.yaml"
 
 for subdir in config["dirnames"]:
-    os.makedirs(f"data/{subdir}/results")
+    os.makedirs(f"data/{subdir}/results", exist_ok = True)
 
 rule all:
     input:
@@ -13,7 +13,6 @@ rule call_consensus:
     input:
         folder=expand("data/{dirname}/", dirname = config["dirnames"]),
         refpath="data/reference/reference.fasta",
-        outfolder=expand("data/{dirname}/results", dirname = config["dirnames"])
     conda:
         "environment.yaml"
     output:
@@ -29,5 +28,5 @@ rule assign_clades:
     output:
         "data/{dirname}/results/pangolin_report.csv"
     shell:
-        "pangolin {input} --threads 1 --outfile {output}"
+        "pangolin --update --update-data && pangolin {input} --threads 1 --outfile {output}"
         
