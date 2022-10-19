@@ -22,7 +22,7 @@ def CallConsensus(folder, ref_path, result_dir):
         seq = seqs[0]
         seq.id = fname[:-6]
         bulk.append(seq)
-    SeqIO.write(bulk, "{result_dir}/final_output.fasta", "fasta")
+    SeqIO.write(bulk, f"{result_dir}/final_output.fasta", "fasta")
 
 if __name__ == "__main__":
 
